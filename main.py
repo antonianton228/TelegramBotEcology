@@ -65,13 +65,10 @@ def find(message):
     with open('page.html', 'w') as f:
         f.write(driver.page_source)
     driver.close()
-    im = Image.open('MapScreen.png')
-    im.crop((400, 100, 1920, 800)).save('MapScreen.png')
-    img = open('MapScreen.png', 'rb')
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     btn1 = types.KeyboardButton("Узнать значение цветов")
     markup.add(btn1)
-    bot.send_photo(message.chat.id, img, reply_markup=markup)
+    bot.send_message(message.chat.id, "1", reply_markup=markup)
 
 
 bot.polling(none_stop=True)
