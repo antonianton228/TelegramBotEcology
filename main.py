@@ -62,7 +62,8 @@ def find(message):
     time.sleep(1)
     element.send_keys(Keys.ENTER)
     time.sleep(1)
-    driver.get_screenshot_as_file("MapScreen.png")
+    with open('page.html', 'w') as f:
+        f.write(driver.page_source)
     driver.close()
     im = Image.open('MapScreen.png')
     im.crop((400, 100, 1920, 800)).save('MapScreen.png')
