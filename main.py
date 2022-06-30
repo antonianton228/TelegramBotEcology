@@ -46,24 +46,22 @@ def find(message):
     # house = result['data']['house']
     # result = ' '.join([country, region, city, postal_code, street, street_type_full, house])
     result = 'Россия, Москва, Москва, округ Текстильщики, 109518, Саратовская Улица'
-
+    bot.send_message(message.chat.id, "1")
     chrome_options = webdriver.ChromeOptions()
+    bot.send_message(message.chat.id, "1")
     chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--no-sandbox")
     driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-
-
-
-    driver.maximize_window()
-
+    bot.send_message(message.chat.id, "1")
     driver.get('https://recyclemap.ru/')
     element = driver.find_element(By.CLASS_NAME, "mapboxgl-ctrl-geocoder--input")
     element.send_keys(result)
     time.sleep(1)
     element.send_keys(Keys.ENTER)
     time.sleep(1)
+    bot.send_message(message.chat.id, "1")
     with open('page.html', 'w') as f:
         f.write(driver.page_source)
     driver.close()
