@@ -7,6 +7,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from PIL import Image
 from telebot import types
+import os
 from selenium.webdriver.chrome.options import Options
 
 bot = telebot.TeleBot('5318941676:AAE65AOZ11ylYJJmajr1PoJ2yM41xMpTVLo')
@@ -43,7 +44,14 @@ def find(message):
     street_type_full = result['data']['street_type_full']
     house = result['data']['house']
     result = ' '.join([country, region, city, postal_code, street, street_type_full, house])
-    driver = webdriver.Chrome(ChromeDriverManager().install())
+
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+
     driver.maximize_window()
 
     driver.get('https://recyclemap.ru/')
