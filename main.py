@@ -35,15 +35,17 @@ def start(message):
 def find(message):
     lon, lat = message.location.longitude, message.location.latitude
     print(message.location)
-    result = dadata.geolocate(name="address", lat=lat, lon=lon)[0]
-    country = result['data']['country']
-    region = result['data']['region']
-    city = result['data']['city']
-    postal_code = result['data']['postal_code']
-    street = result['data']['street']
-    street_type_full = result['data']['street_type_full']
-    house = result['data']['house']
-    result = ' '.join([country, region, city, postal_code, street, street_type_full, house])
+
+    # result = dadata.geolocate(name="address", lat=lat, lon=lon)[0]
+    # country = result['data']['country']
+    # region = result['data']['region']
+    # city = result['data']['city']
+    # postal_code = result['data']['postal_code']
+    # street = result['data']['street']
+    # street_type_full = result['data']['street_type_full']
+    # house = result['data']['house']
+    # result = ' '.join([country, region, city, postal_code, street, street_type_full, house])
+    result = 'Россия, Москва, Москва, округ Текстильщики, 109518, Саратовская Улица'
 
     chrome_options = webdriver.ChromeOptions()
     chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
