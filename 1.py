@@ -55,13 +55,12 @@ def find(message):
     driver.maximize_window()
 
     driver.get('https://recyclemap.ru/')
-    time.sleep(1)
+    time.sleep(4.5)
     element = driver.find_element(By.CLASS_NAME, "mapboxgl-ctrl-geocoder--input")
     element.send_keys(result)
+    time.sleep(0.5)
     element.send_keys(Keys.ENTER)
-    time.sleep(2)
-    element = driver.find_element(By.CLASS_NAME, "close.grey")
-    element.click()
+    time.sleep(1.5)
 
     driver.get_screenshot_as_file("1.png")
     driver.close()
