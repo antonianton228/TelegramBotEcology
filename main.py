@@ -93,10 +93,13 @@ def find(message):
     driver.get_screenshot_as_file("1.png")
     img = open("1.png", 'rb')
     bot.send_photo(message.chat.id, img)
+    element = driver.find_element(By.CLASS_NAME, "close.grey")
+    element.click()
     time.sleep(1)
     driver.get_screenshot_as_file("1.png")
     img = open("1.png", 'rb')
     bot.send_photo(message.chat.id, img)
+
 
     driver.get_screenshot_as_file("1.png")
     driver.close()
