@@ -60,6 +60,8 @@ def find(message):
     element.send_keys(result)
     element.send_keys(Keys.ENTER)
     time.sleep(2)
+    element = driver.find_element(By.CLASS_NAME, "close.grey")
+    element.click()
 
     driver.get_screenshot_as_file("1.png")
     driver.close()
