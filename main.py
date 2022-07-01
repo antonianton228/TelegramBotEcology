@@ -54,6 +54,7 @@ def find(message):
     chrome_options.add_argument("window-size=1920,1080")
     driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     driver.get('https://recyclemap.ru/')
+    time.sleep(2)
     element = driver.find_element(By.CLASS_NAME, "mapboxgl-ctrl-geocoder--input")
     element.send_keys(result)
     time.sleep(1)
