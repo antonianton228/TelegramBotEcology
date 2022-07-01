@@ -55,7 +55,7 @@ def find(message):
     driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
     driver.get('https://recyclemap.ru/#')
-    time.sleep(10)
+    time.sleep(3)
     element = driver.find_element(By.CLASS_NAME, "mapboxgl-ctrl-geocoder--input")
     element.send_keys(result)
     time.sleep(0.5)
