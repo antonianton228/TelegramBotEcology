@@ -35,7 +35,7 @@ def start(message):
 def find(message):
     lon, lat = message.location.longitude, message.location.latitude
     print(message.location)
-
+    bot.send_message(message.from_user.id, "Ищу адреса")
     result = dadata.geolocate(name="address", lat=lat, lon=lon)[0]
     country = result['data']['country']
     region = result['data']['region']
@@ -53,6 +53,7 @@ def find(message):
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("window-size=1920,1080")
     driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+
 
     driver.get('https://recyclemap.ru/#')
     time.sleep(3)
