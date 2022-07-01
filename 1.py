@@ -5,7 +5,8 @@ import time
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from PIL import Image
+from PIL import Image, ImageEnhance
+from selenium.webdriver.common.action_chains import ActionChains
 from telebot import types
 import os
 from selenium.webdriver.chrome.options import Options
@@ -54,17 +55,23 @@ def find(message):
 
     driver.maximize_window()
 
-    driver.get('https://recyclemap.ru/')
-    time.sleep(4.5)
+    driver.get('https://recyclemap.ru/#')
+    time.sleep(10)
     element = driver.find_element(By.CLASS_NAME, "mapboxgl-ctrl-geocoder--input")
     element.send_keys(result)
     time.sleep(0.5)
     element.send_keys(Keys.ENTER)
     time.sleep(1.5)
-
+    element = driver.find_element(By.ID, 'alert')
+    driver.execute_script("""
+    var element = arguments[0];
+    element.parentNode.removeChild(element);
+    """, element)
     driver.get_screenshot_as_file("1.png")
     driver.close()
     im = Image.open('1.png')
+    enhancer = ImageEnhance.Brightness(im)
+    im = enhancer.enhance(2)
     im.crop((400, 100, 1920, 800)).save('1.png')
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     btn1 = types.KeyboardButton("Узнать значение цветов")
