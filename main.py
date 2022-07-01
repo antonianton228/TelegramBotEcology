@@ -53,9 +53,7 @@ def find(message):
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("window-size=1920,1080")
     driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-    bot.send_message(message.chat.id, "create driver")
     driver.get('https://recyclemap.ru/')
-    bot.send_message(message.chat.id, "open site")
     element = driver.find_element(By.CLASS_NAME, "mapboxgl-ctrl-geocoder--input")
     element.send_keys(result)
     time.sleep(1)
@@ -63,10 +61,12 @@ def find(message):
     time.sleep(1)
     driver.get_screenshot_as_file("1.png")
     driver.close()
+    im = Image.open('1.png')
+    im.crop((400, 100, 1920, 800)).save('1.png')
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     btn1 = types.KeyboardButton("Узнать значение цветов")
     markup.add(btn1)
-    img = open("1.png")
+    img = open("1.png", 'rb')
     bot.send_photo(message.chat.id, img, reply_markup=markup)
 
 
