@@ -46,31 +46,29 @@ def find(message):
     house = result['data']['house']
     result = ' '.join([country, region, city, postal_code, street, street_type_full, house])
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument("--headless")
+    # chrome_options.add_argument("--headless")
     chrome_options.add_argument("window-size=1920,1080")
-    # chrome_options.add_argument("--disable-dev-shm-usage")
-    # chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
     driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=chrome_options)
 
     driver.maximize_window()
 
     driver.get('https://recyclemap.ru/')
-    # with open('page.html', 'w', encoding='utf-8') as f:
-    #     f.write(driver.page_source)
-    driver.get_screenshot_as_file("1.png")
+    time.sleep(1)
     element = driver.find_element(By.CLASS_NAME, "mapboxgl-ctrl-geocoder--input")
     element.send_keys(result)
-    time.sleep(1)
     element.send_keys(Keys.ENTER)
-    time.sleep(1)
-    driver.get_screenshot_as_file("MapScreen.png")
+    time.sleep(2)
+
+    driver.get_screenshot_as_file("1.png")
     driver.close()
-    im = Image.open('MapScreen.png')
-    im.crop((400, 100, 1920, 800)).save('MapScreen.png')
-    img = open('MapScreen.png', 'rb')
+    im = Image.open('1.png')
+    im.crop((400, 100, 1920, 800)).save('1.png')
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     btn1 = types.KeyboardButton("Узнать значение цветов")
     markup.add(btn1)
+    img = open("1.png", 'rb')
     bot.send_photo(message.chat.id, img, reply_markup=markup)
 
 
