@@ -48,9 +48,10 @@ def find(message):
     result = 'Россия, Москва, Москва, округ Текстильщики, 109518, Саратовская Улица'
     chrome_options = webdriver.ChromeOptions()
     chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    # chrome_options.add_argument("--headless")
-    # chrome_options.add_argument("--disable-dev-shm-usage")
-    # chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("window-size=1920,1080")
     driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     bot.send_message(message.chat.id, "create driver")
     driver.get('https://recyclemap.ru/')
@@ -63,8 +64,10 @@ def find(message):
     element.send_keys(Keys.ENTER)
     bot.send_message(message.chat.id, "send enter")
     time.sleep(1)
-    with open('page.html', 'w') as f:
-        f.write(driver.page_source)
+    pageSource = driver.page_source
+    fileToWrite = open("page_source.html", "w", encoding="utf-8")
+    fileToWrite.write(pageSource)
+    fileToWrite.close()
     driver.close()
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     btn1 = types.KeyboardButton("Узнать значение цветов")

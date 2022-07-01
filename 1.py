@@ -45,11 +45,19 @@ def find(message):
     street_type_full = result['data']['street_type_full']
     house = result['data']['house']
     result = ' '.join([country, region, city, postal_code, street, street_type_full, house])
-    driver = webdriver.Chrome(ChromeDriverManager().install())
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("window-size=1920,1080")
+    # chrome_options.add_argument("--disable-dev-shm-usage")
+    # chrome_options.add_argument("--no-sandbox")
+    driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=chrome_options)
 
     driver.maximize_window()
 
     driver.get('https://recyclemap.ru/')
+    # with open('page.html', 'w', encoding='utf-8') as f:
+    #     f.write(driver.page_source)
+    driver.get_screenshot_as_file("1.png")
     element = driver.find_element(By.CLASS_NAME, "mapboxgl-ctrl-geocoder--input")
     element.send_keys(result)
     time.sleep(1)
