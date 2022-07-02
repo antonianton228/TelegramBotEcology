@@ -84,6 +84,7 @@ def find(message):
         print(f'name = {i}')
         element = driver.find_element(By.CLASS_NAME, "input__control._bold")
         element.send_keys(i)
+        time.sleep(0.5)
         element.send_keys(Keys.ENTER)
         print('search')
         time.sleep(2)
