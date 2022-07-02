@@ -102,6 +102,7 @@ def start(message):
 @bot.message_handler(content_types=['location'])
 def find(message):
     global typee
+    print(typee)
     lon, lat = message.location.longitude, message.location.latitude
     print(message.location)
 
