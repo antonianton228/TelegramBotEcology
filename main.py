@@ -57,31 +57,38 @@ def find(message):
     bot.send_message(message.from_user.id, "Ищу адреса")
 
     driver.get('https://recyclemap.ru/#')
+    print('open site')
     time.sleep(3)
     element = driver.find_element(By.CLASS_NAME, "mapboxgl-ctrl-geocoder--input")
     element.send_keys(result)
+    print('write adress')
     time.sleep(0.5)
     element.send_keys(Keys.ENTER)
+    print('enter')
     time.sleep(1.5)
     element = driver.find_element(By.ID, 'alert')
     driver.execute_script("""
             var element = arguments[0];
             element.parentNode.removeChild(element);
             """, element)
-    element = driver.find_element(By.TAG_NAME, 'html')
+    print('delete alarm')
     t = driver.find_element(By.CLASS_NAME, 'locat_near')
     text = t.text
     adres = text.split('\n')[1::2]
     names = text.split('\n')[::2]
     coords = []
+    print('copy adress')
     for i in adres:
         driver.get('https://yandex.ru/maps/')
+        print('open map')
         element = driver.find_element(By.CLASS_NAME, "input__control._bold")
         element.send_keys(i)
         element.send_keys(Keys.ENTER)
+        print('search')
         time.sleep(2)
         element = driver.find_element(By.CLASS_NAME, "toponym-card-title-view__coords-badge")
         coords.append(element.text)
+        print('save coords')
     driver.close()
     print(coords)
     for i, j in zip(coords, names):
