@@ -58,8 +58,6 @@ def find(message):
 
     driver.get('https://recyclemap.ru/#')
     time.sleep(3)
-    if typee != 0:
-        driver.find_element(By.CSS_SELECTOR, f'a[data-id="{typee - 2}"]').click()
     element = driver.find_element(By.CLASS_NAME, "mapboxgl-ctrl-geocoder--input")
     element.send_keys(result)
     time.sleep(0.5)
