@@ -24,77 +24,12 @@ def start(message):
         bot.send_message(message.from_user.id,
                          "Здравствуйте, я бот, который поможет вам сохранить землю в чистоте. Я подскажу вам, где находится бллижайший пункт по сортировке отходов, а так же смогу помочь с определением типа отходов. Напишите /find для нахождения ближайших сортировок, напишите /opr для помощи с определением.")
     elif message.text == '/find':
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-        btn1 = types.KeyboardButton("Бумага")
-        markup.add(btn1)
-        btn2 = types.KeyboardButton("Стекло")
-        markup.add(btn2)
-        btn3 = types.KeyboardButton("Пластик")
-        markup.add(btn3)
-        btn4 = types.KeyboardButton("Металл")
-        markup.add(btn4)
-        btn5 = types.KeyboardButton("Одежда")
-        markup.add(btn5)
-        btn6 = types.KeyboardButton("Иное")
-        markup.add(btn6)
-        btn7 = types.KeyboardButton("Опасные отходы")
-        markup.add(btn7)
-        btn8 = types.KeyboardButton("Батарейки")
-        markup.add(btn8)
-        btn9 = types.KeyboardButton("Лампочки")
-        markup.add(btn9)
-        btn10 = types.KeyboardButton("Бытовая техника")
-        markup.add(btn10)
-        btn11 = types.KeyboardButton("Тетра пак")
-        markup.add(btn11)
-        btn12 = types.KeyboardButton("Крышки")
-        markup.add(btn12)
-        btn13 = types.KeyboardButton("Шины")
-        markup.add(btn13)
-        bot.send_message(message.chat.id, "Какой тип отходов вас интерисует?", reply_markup=markup)
+        bot.send_message(message.from_user.id, "Отправьте мне вашу геолокацию")
+
     elif message.text == '/opr':
         bot.send_message(message.from_user.id, "Отправьте мне вашу геолокацию")
     elif message.text == 'Узнать значение цветов':
         bot.send_message(message.from_user.id, "Отправьте мне вашу геолокацию")
-    elif message.text == 'Бумага':
-        bot.send_message(message.from_user.id, "Отправьте мне вашу геолокацию")
-        typee = 3
-    elif message.text == 'Стекло':
-        bot.send_message(message.from_user.id, "Отправьте мне вашу геолокацию")
-        typee = 4
-    elif message.text == 'Пластик':
-        bot.send_message(message.from_user.id, "Отправьте мне вашу геолокацию")
-        typee = 5
-    elif message.text == 'Металл':
-        bot.send_message(message.from_user.id, "Отправьте мне вашу геолокацию")
-        typee = 6
-    elif message.text == 'Одежда':
-        bot.send_message(message.from_user.id, "Отправьте мне вашу геолокацию")
-        typee = 7
-    elif message.text == 'Иное':
-        bot.send_message(message.from_user.id, "Отправьте мне вашу геолокацию")
-        typee = 8
-    elif message.text == 'Опасные отходы':
-        bot.send_message(message.from_user.id, "Отправьте мне вашу геолокацию")
-        typee = 9
-    elif message.text == 'Батарейки':
-        bot.send_message(message.from_user.id, "Отправьте мне вашу геолокацию")
-        typee = 10
-    elif message.text == 'Лампочки':
-        bot.send_message(message.from_user.id, "Отправьте мне вашу геолокацию")
-        typee = 11
-    elif message.text == 'Бытовая техника':
-        bot.send_message(message.from_user.id, "Отправьте мне вашу геолокацию")
-        typee = 12
-    elif message.text == 'Тетра пак':
-        bot.send_message(message.from_user.id, "Отправьте мне вашу геолокацию")
-        typee = 13
-    elif message.text == 'Крышки':
-        bot.send_message(message.from_user.id, "Отправьте мне вашу геолокацию")
-        typee = 14
-    elif message.text == 'Шины':
-        bot.send_message(message.from_user.id, "Отправьте мне вашу геолокацию")
-        typee = 15
     else:
         bot.send_message(message.from_user.id, "Напишите /start")
 
@@ -143,6 +78,7 @@ def find(message):
     t = driver.find_element(By.CLASS_NAME, 'locat_near')
     text = t.text
     adres = text.split('\n')[1::2]
+    names = text.split('\n')[::2]
     coords = []
     for i in adres:
         driver.get('https://yandex.ru/maps/')
@@ -154,7 +90,8 @@ def find(message):
         coords.append(element.text)
     driver.close()
     print(coords)
-    for i in coords:
+    for i, j in coords, names:
+        bot.send_message(message.from_user.id, j)
         bot.send_location(message.from_user.id, *tuple(map(float, i.split(', '))))
 
     # im = Image.open('1.png')
