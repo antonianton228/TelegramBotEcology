@@ -131,13 +131,13 @@ def find(message):
     time.sleep(0.5)
     element.send_keys(Keys.ENTER)
     time.sleep(1.5)
-    if typee != 0:
-        driver.find_element(By.CSS_SELECTOR, f'a[data-id="{typee - 2}"]').click()
     element = driver.find_element(By.ID, 'alert')
     driver.execute_script("""
-        var element = arguments[0];
-        element.parentNode.removeChild(element);
-        """, element)
+            var element = arguments[0];
+            element.parentNode.removeChild(element);
+            """, element)
+    if typee != 0:
+        driver.find_element(By.CSS_SELECTOR, f'a[data-id="{typee - 2}"]').click()
     element = driver.find_element(By.TAG_NAME, 'html')
     t = driver.find_element(By.CLASS_NAME, 'locat_near')
     text = t.text
