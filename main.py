@@ -81,6 +81,7 @@ def find(message):
     for i in adres:
         driver.get('https://yandex.ru/maps/')
         print('open map')
+        print(f'name = {i}')
         element = driver.find_element(By.CLASS_NAME, "input__control._bold")
         element.send_keys(i)
         element.send_keys(Keys.ENTER)
