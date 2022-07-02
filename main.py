@@ -90,7 +90,7 @@ def find(message):
         coords.append(element.text)
     driver.close()
     print(coords)
-    for i, j in coords, names:
+    for i, j in zip(coords, names):
         bot.send_message(message.from_user.id, j)
         bot.send_location(message.from_user.id, *tuple(map(float, i.split(', '))))
 
