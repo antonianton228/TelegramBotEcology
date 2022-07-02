@@ -18,8 +18,6 @@ dadata = Dadata(dadata_token)
 
 @bot.message_handler(content_types=['text'])
 def start(message):
-    global typee
-    typee = 0
     if message.text == '/start':
         bot.send_message(message.from_user.id,
                          "Здравствуйте, я бот, который поможет вам сохранить землю в чистоте. Я подскажу вам, где находится бллижайший пункт по сортировке отходов, а так же смогу помочь с определением типа отходов. Напишите /find для нахождения ближайших сортировок, напишите /opr для помощи с определением.")
@@ -36,8 +34,6 @@ def start(message):
 
 @bot.message_handler(content_types=['location'])
 def find(message):
-    global typee
-    print(typee)
     lon, lat = message.location.longitude, message.location.latitude
     print(message.location)
 
