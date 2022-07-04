@@ -82,6 +82,7 @@ def find(message):
     for i in adres:
         driver.get('https://yandex.ru/maps/')
         print('open map')
+        time.sleep(0.5)
         element = driver.find_element(By.CLASS_NAME, "input__control._bold")
 
         driver.get_screenshot_as_file("1.png")
@@ -95,7 +96,7 @@ def find(message):
         bot.send_photo(message.from_user.id, img)
 
         print(f'{i}')
-        time.sleep(0.5)
+        time.sleep(1)
         element.send_keys(Keys.ENTER)
 
         driver.get_screenshot_as_file("1.png")
@@ -103,7 +104,12 @@ def find(message):
         bot.send_photo(message.from_user.id, img)
 
         print('search')
-        time.sleep(3)
+        time.sleep(4)
+
+        driver.get_screenshot_as_file("1.png")
+        img = open("1.png", 'rb')
+        bot.send_photo(message.from_user.id, img)
+
         element = driver.find_element(By.CLASS_NAME, "toponym-card-title-view__coords-badge")
         coords.append(element.text)
         print('save coords')
