@@ -65,7 +65,7 @@ def find(message):
     time.sleep(0.5)
     element.send_keys(Keys.ENTER)
     print('enter')
-    time.sleep(1.5)
+    time.sleep(2.5)
     element = driver.find_element(By.ID, 'alert')
     driver.execute_script("""
             var element = arguments[0];
@@ -82,13 +82,13 @@ def find(message):
     for i in adres:
         driver.get('https://yandex.ru/maps/')
         print('open map')
-        print(f'{i}')
         element = driver.find_element(By.CLASS_NAME, "input__control._bold")
         element.send_keys(i)
+        print(f'{i}')
         time.sleep(0.5)
         element.send_keys(Keys.ENTER)
         print('search')
-        time.sleep(2)
+        time.sleep(3)
         element = driver.find_element(By.CLASS_NAME, "toponym-card-title-view__coords-badge")
         coords.append(element.text)
         print('save coords')
