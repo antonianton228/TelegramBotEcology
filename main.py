@@ -54,7 +54,7 @@ def find(message):
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("window-size=2854,1453")
     driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-    bot.send_message(message.from_user.id, "Ищу адреса")
+    bot.send_message(message.from_user.id, "Ищу адреса \nПоиск может занять до двух минут.")
     print(result)
     driver.get('https://recyclemap.ru/#')
     print('open site')
@@ -101,6 +101,7 @@ def find(message):
         bot.send_location(message.from_user.id, *tuple(map(float, coords.split(', '))))
         print('send coords')
     driver.close()
+    bot.send_message(message.from_user.id, "Это все адреса")
 
     # im = Image.open('1.png')
     # enhancer = ImageEnhance.Brightness(im)
