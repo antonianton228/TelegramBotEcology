@@ -91,7 +91,11 @@ def find(message):
         element.send_keys(Keys.ENTER)
         print('search')
         time.sleep(2)
-        element = driver.find_element(By.CLASS_NAME, "toponym-card-title-view__coords-badge")
+        try:
+            element = driver.find_element(By.CLASS_NAME, "toponym-card-title-view__coords-badge")
+        except Exception:
+            continue
+
         coords = element.text
         bot.send_message(message.from_user.id, j)
         bot.send_location(message.from_user.id, *tuple(map(float, coords.split(', '))))
