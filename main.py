@@ -76,10 +76,9 @@ def find(message):
     text = t.text
     adres = text.split('\n')[1::2]
     names = text.split('\n')[::2]
-    coords = []
     print(adres)
     print('copy adress')
-    for i in adres:
+    for i, j in zip(adres, names):
         driver.get('https://yandex.ru/maps/')
         time.sleep(0.5)
         print('open map')
@@ -91,15 +90,13 @@ def find(message):
         time.sleep(0.5)
         element.send_keys(Keys.ENTER)
         print('search')
-        time.sleep(1.5)
+        time.sleep(2)
         element = driver.find_element(By.CLASS_NAME, "toponym-card-title-view__coords-badge")
-        coords.append(element.text)
-        print('save coords')
-    driver.close()
-    print(coords)
-    for i, j in zip(coords, names):
+        coords = element.text
         bot.send_message(message.from_user.id, j)
-        bot.send_location(message.from_user.id, *tuple(map(float, i.split(', '))))
+        bot.send_location(message.from_user.id, *tuple(map(float, coords.split(', '))))
+        print('send coords')
+    driver.close()
 
     # im = Image.open('1.png')
     # enhancer = ImageEnhance.Brightness(im)
