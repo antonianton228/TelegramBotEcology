@@ -81,16 +81,17 @@ def find(message):
     print('copy adress')
     for i in adres:
         driver.get('https://yandex.ru/maps/')
+        time.sleep(0.5)
         print('open map')
         element = driver.find_element(By.CLASS_NAME, "input__control._bold")
         if "Москв" not in i:
-            i = "Москва" + i
+            i = "Москва " + i
         element.send_keys(i)
         print(f'{i}')
         time.sleep(0.5)
         element.send_keys(Keys.ENTER)
         print('search')
-        time.sleep(2)
+        time.sleep(1.5)
         element = driver.find_element(By.CLASS_NAME, "toponym-card-title-view__coords-badge")
         coords.append(element.text)
         print('save coords')
