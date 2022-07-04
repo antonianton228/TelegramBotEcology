@@ -77,6 +77,7 @@ def find(message):
     adres = text.split('\n')[1::2]
     names = text.split('\n')[::2]
     coords = []
+    print(adres)
     print('copy adress')
     for i in adres:
         driver.get('https://yandex.ru/maps/')
