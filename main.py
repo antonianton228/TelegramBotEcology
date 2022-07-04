@@ -55,7 +55,7 @@ def find(message):
     chrome_options.add_argument("window-size=2854,1453")
     driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     bot.send_message(message.from_user.id, "Ищу адреса")
-
+    print(result)
     driver.get('https://recyclemap.ru/#')
     print('open site')
     time.sleep(3)
@@ -82,7 +82,7 @@ def find(message):
     for i in adres:
         driver.get('https://yandex.ru/maps/')
         print('open map')
-        print(f'name = {i}')
+        print(f'{i}')
         element = driver.find_element(By.CLASS_NAME, "input__control._bold")
         element.send_keys(i)
         time.sleep(0.5)
