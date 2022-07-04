@@ -58,7 +58,7 @@ def find(message):
     print(result)
     driver.get('https://recyclemap.ru/#')
     print('open site')
-    time.sleep(3)
+    time.sleep(3.5)
     element = driver.find_element(By.CLASS_NAME, "mapboxgl-ctrl-geocoder--input")
     element.send_keys(result)
     print('write adress')
@@ -95,7 +95,6 @@ def find(message):
             element = driver.find_element(By.CLASS_NAME, "toponym-card-title-view__coords-badge")
         except Exception:
             continue
-
         coords = element.text
         bot.send_message(message.from_user.id, j)
         bot.send_location(message.from_user.id, *tuple(map(float, coords.split(', '))))
