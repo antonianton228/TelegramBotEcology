@@ -84,22 +84,22 @@ def find(message):
         print('open map')
         element = driver.find_element(By.CLASS_NAME, "input__control._bold")
 
-        driver.get_screenshot_as_file("1.img")
-        img = open("1.img", 'rb')
+        driver.get_screenshot_as_file("1.png")
+        img = open("1.png", 'rb')
         bot.send_photo(message.from_user.id, img)
 
         element.send_keys(i)
 
-        driver.get_screenshot_as_file("1.img")
-        img = open("1.img", 'rb')
+        driver.get_screenshot_as_file("1.png")
+        img = open("1.png", 'rb')
         bot.send_photo(message.from_user.id, img)
 
         print(f'{i}')
         time.sleep(0.5)
         element.send_keys(Keys.ENTER)
 
-        driver.get_screenshot_as_file("1.img")
-        img = open("1.img", 'rb')
+        driver.get_screenshot_as_file("1.png")
+        img = open("1.png", 'rb')
         bot.send_photo(message.from_user.id, img)
 
         print('search')
