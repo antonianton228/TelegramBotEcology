@@ -49,14 +49,14 @@ def find(message):
     # result = 'Россия, Москва, Москва, округ Текстильщики, 109518, Саратовская Улица'
     chrome_options = webdriver.ChromeOptions()
     chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    chrome_options.add_argument("--headless")
+    # chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("window-size=1920,1080")
 
     driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=chrome_options)
 
     driver.get('https://recyclemap.ru/#')
+    print('open site')
     time.sleep(3)
     element = driver.find_element(By.CLASS_NAME, "mapboxgl-ctrl-geocoder--input")
     element.send_keys(result)
@@ -64,18 +64,19 @@ def find(message):
     time.sleep(0.5)
     element.send_keys(Keys.ENTER)
     print('enter')
-    time.sleep(2)
+    time.sleep(1.5)
     element = driver.find_element(By.ID, 'alert')
     driver.execute_script("""
-                var element = arguments[0];
-                element.parentNode.removeChild(element);
-                """, element)
+            var element = arguments[0];
+            element.parentNode.removeChild(element);
+            """, element)
     print('delete alarm')
     t = driver.find_element(By.CLASS_NAME, 'locat_near')
     text = t.text
     adres = text.split('\n')[1::2]
     names = text.split('\n')[::2]
     coords = []
+    print(adres)
     print('copy adress')
     for i in adres:
         driver.get('https://yandex.ru/maps/')
