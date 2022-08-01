@@ -65,7 +65,7 @@ def find(message):
     time.sleep(0.5)
     element.send_keys(Keys.ENTER)
     print('enter')
-    time.sleep(2.5)
+    time.sleep(3)
     element = driver.find_element(By.ID, 'alert')
     driver.execute_script("""
             var element = arguments[0];
