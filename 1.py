@@ -2935,10 +2935,10 @@ def find(message):
     bot.send_message(message.from_user.id, 'Начинаю поиск')
     lon, lat = message.location.longitude, message.location.latitude
     result = []
-    metr = 0.005
+    metr = 0.0001
     while len(result) <= 5:
         result = []
-        metr += 0.003
+        metr += 0.002
         for i in dict_of_rec.keys():
             lat1, lon1 = i
             if abs(lon - lon1) <= metr and abs(lat - lat1) <= metr:
