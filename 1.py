@@ -2938,7 +2938,7 @@ def find(message):
     metr = 0.0001
     while len(result) <= 5:
         result = []
-        metr += 0.002
+        metr += 0.0001
         for i in dict_of_rec.keys():
             lat1, lon1 = i
             if abs(lon - lon1) <= metr and abs(lat - lat1) <= metr:
