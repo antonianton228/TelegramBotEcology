@@ -1,4 +1,5 @@
 import telebot
+import json
 
 bot = telebot.TeleBot('5318941676:AAE65AOZ11ylYJJmajr1PoJ2yM41xMpTVLo')
 
@@ -2918,36 +2919,58 @@ dict_of_rec = {(55.54864, 37.329743): 'ТОЧКА СБОРА ЭЛЕКТРОНН�
         (55.910649, 37.867708): 'ТОЧКА ПРИЕМА БАТАРЕЕК В МАГАЗИНЕ ВКУСВИЛЛ',
         (55.914418, 37.865777): 'ПУНКТ ПРИЕМА СТАРОЙ ПОСУДЫ В МАГАЗИНЕ "FISSMAN"',
         (55.91352, 37.868382): 'ПУНКТ ПРИЕМА ЭЛЕКТРОТЕХНИКИ И БАТАРЕЕК В МАГАЗИНЕ ЭЛЬДОРАДО'}
+flag = True
+
+
 
 
 @bot.message_handler(content_types=['text'])
 def start(message):
+    global flag
     if message.text == '/start':
-        bot.send_message(message.from_user.id, '''Здравствуйте! Я помогу вам найти ближайшие музеи по программе музеи детямю. Для этого введите команду /find''')
+        bot.send_message(message.from_user.id, '''Здравствуйте! 
+Я бот, который поможет вам сохранить Землю в чистоте. 🌱♻️
+Я подскажу вам, где находится ближайший пункт по сортировке отходов. Напишите /find для нахождения ближайших сортировок. А так же заходите на наш сайт: https://blooming-headland-96587.herokuapp.com/''')
     elif message.text == '/find':
         bot.send_message(message.from_user.id, "Отправьте мне вашу геолокацию")
+    elif message.text == '/report':
+        bot.send_message(message.from_user.id, "Отправьте мне геолокацию сортировки.")
+        flag = False
+    elif message.text == 'aaaddd':
+        with open('reports.json', 'r', encoding='utf-8') as fh:
+                bot.send_document(message.from_user.id, fh)
 
 
 
 @bot.message_handler(content_types=['location'])
 def find(message):
-    print(message.location.longitude, message.location.latitude)
-    bot.send_message(message.from_user.id, 'Начинаю поиск')
-    lon, lat = message.location.longitude, message.location.latitude
-    result = []
-    metr = 0.0001
-    while len(result) <= 5:
-        result = []
-        metr += 0.0001
-        for i in dict_of_rec.keys():
-            lat1, lon1 = i
-            if abs(lon - lon1) <= metr and abs(lat - lat1) <= metr:
-                result.append(i)
-    for i in result:
-        bot.send_message(message.from_user.id, dict_of_rec[i])
-        bot.send_location(message.from_user.id, *tuple(i))
-    bot.send_message(message.from_user.id, 'Поиск окончен')
-
+        global flag, dict_of_reports
+        if flag:
+            print(message.location.longitude, message.location.latitude)
+            bot.send_message(message.from_user.id, 'Начинаю поиск')
+            lon, lat = message.location.longitude, message.location.latitude
+            result = []
+            metr = 0.0001
+            while len(result) <= 5:
+                result = []
+                metr += 0.0001
+                for i in dict_of_rec.keys():
+                    lat1, lon1 = i
+                    if abs(lon - lon1) <= metr and abs(lat - lat1) <= metr:
+                        result.append(i)
+            for i in result:
+                bot.send_message(message.from_user.id, dict_of_rec[i])
+                bot.send_location(message.from_user.id, *tuple(i))
+            bot.send_message(message.from_user.id, 'Поиск окончен. Если бот не нашел сортировки, о которых вам известно, то напишите команду /report и отправьте обратную связь.')
+        else:
+            with open('reports.json', 'r', encoding='utf-8') as fh:
+                dict_of_reports = json.load(fh)
+            dict_of_reports[str(len(dict_of_reports))] = str(message)
+            with open('reports.json', 'w', encoding='utf-8') as fh:
+                  fh.write(json.dumps(dict_of_reports, ensure_ascii=False))
+            flag = True
+            bot.send_message(message.from_user.id,
+                             'Спасибо за обратную связь')
 
 
 bot.polling(none_stop=True)
