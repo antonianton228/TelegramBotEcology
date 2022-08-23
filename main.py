@@ -2964,10 +2964,12 @@ def find(message):
         else:
             with open('reports.json', 'r', encoding='utf-8') as fh:
                 dict_of_reports = json.load(fh)
-            dict_of_reports[len(dict_of_reports)] = message
+            dict_of_reports[str(len(dict_of_reports))] = str(message)
             with open('reports.json', 'w', encoding='utf-8') as fh:
                   fh.write(json.dumps(dict_of_reports, ensure_ascii=False))
             flag = True
+            bot.send_message(message.from_user.id,
+                             'Спасибо за обратную связь')
 
 
 bot.polling(none_stop=True)
