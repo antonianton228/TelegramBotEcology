@@ -2926,6 +2926,7 @@ flag = True
 
 @bot.message_handler(content_types=['text'])
 def start(message):
+    global flag
     if message.text == '/start':
         bot.send_message(message.from_user.id, '''Здравствуйте! 
 Я бот, который поможет вам сохранить Землю в чистоте. 🌱♻️
@@ -2933,7 +2934,7 @@ def start(message):
     elif message.text == '/find':
         bot.send_message(message.from_user.id, "Отправьте мне вашу геолокацию")
     elif message.text == '/report':
-        bot.send_message(message.from_user.id, "Отправьте мне геолокацию сортировки и текст комментария одним сообщением.")
+        bot.send_message(message.from_user.id, "Отправьте мне геолокацию сортировки.")
         flag = False
     elif message.text == 'aaaddd':
         bot.send_document(message.from_user.id, 'reports.json')
